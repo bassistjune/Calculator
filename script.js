@@ -7,34 +7,66 @@ let operatorEl = document.getElementsByClassName("operator");
 let operandEl = document.getElementsByClassName("operand");
 let resultEl = document.getElementById("calculator_result_text");
 
+let resultText = "";
+let isOperator = false;
+let currentOperand = "";
+let prevOperand = "";
+let currentOperator = "";
+
 
 let operatorClick = function(event){
-    switch(event.target.textContent){
-        case "÷":
-            console.log("devic");
-            break;
-        case "×":
-            console.log("times");
-            break;
-        case "-":
-            console.log("마이너스");
-            break;
-        case "+":
-            console.log("플러스");
-            break;
-        case "=":
-            console.log("결과");
-            break;
-        default:
-            console.log("OperatorErr");
+    if(event.target.textContent == "="){
+        console.log("equls");
+        equls();
+        return false;
     }
-    resultEl.textContent = event.target.textContent;
-
+    currentOperator = event.target.textContent;
+    if(isOperator){
+        prevOperand = currentOperand;
+        currentOperand = "";
+        setResultText(event.target.textContent);
+        isOperator = false;
+    }
 }
 
 let operandClick = function(event){
-    resultEl.textContent = event.target.textContent;
+    isOperator = true;
+    currentOperand += event.target.textContent;
+    setResultText(event.target.textContent);
 }
+
+
+let setResultText = function(text){
+    resultText += text;
+    resultEl.textContent = resultText;
+    // console.log("resultText",resultText);
+}
+
+let equls = function(){
+
+    let completeResult = "";
+    let prevNumber = Number(prevOperand);
+    let currentNumber = Number(currentOperand);
+    switch(currentOperator){
+        case "÷":
+            completeResult = prevNumber / currentNumber;
+            break;
+        case "×":
+            completeResult = prevNumber * currentNumber;
+            break;
+        case "-":
+            completeResult = prevNumber - currentNumber;
+            break;
+        case "+":
+            completeResult = prevNumber + currentNumber;
+            break;
+        default:
+            console.log("operator err");
+            break;
+    }
+    resultEl.textContent = completeResult;
+}
+
 
 for(let i = 0; i < operatorEl.length; i++){
     operatorEl[i].addEventListener("click",operatorClick,false);
