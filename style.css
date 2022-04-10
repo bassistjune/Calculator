@@ -8,10 +8,17 @@
           box-sizing: border-box;
 }
 
-.calculator .calculator_result p {
+.calculator .calculator_result #calculator_result_text {
   margin: 0;
   font-size: 28px;
   color: #2E64FE;
+  padding-right: 10px;
+}
+
+.calculator .calculator_result #calculator_sub_result_text {
+  margin: 0;
+  font-size: 14px;
+  color: #E6E6E6;
   padding-right: 10px;
 }
 
