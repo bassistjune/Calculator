@@ -179,8 +179,36 @@ function conversionPostFix(){
     for(let i = 0; i < stack.length; i++){
         postFixAr.push(stack[i]);
     }
-    console.log(postFixAr);
-    console.log(stack);
+    return postFixAr;
 }
 
-conversionPostFix();
+function postFixCalculation(postFixAr){
+    let stack = [];
+    for(let i = 0; i < postFixAr.length; i++){
+        if(!isNaN(postFixAr[i])){
+            //피연산자는 스택에 저장
+            stack.push(postFixAr[i]);
+        }else{
+            //연산자 일경우 현재 스택에 저장되어있는 피연산자 두개 추출
+            //계산후 결과를 다시 스택에 저장 해당 부분 반복
+            let num2 = Number(stack.pop());
+            let num1 = Number(stack.pop());
+            if(postFixAr[i] == "+"){
+                let result = num1 + num2;
+                stack.push(result);
+            }else if(postFixAr[i] == "-"){
+                let result = num1 - num2;
+                stack.push(result);
+            }else if(postFixAr[i] == "*"){
+                let result = num1 * num2;
+                stack.push(result);
+            }else if(postFixAr[i] == "/"){
+                let result = num1 / num2;
+                stack.push(result);
+            }
+        }
+    }
+    return stack.pop();
+}
+
+postFixCalculation(conversionPostFix());
