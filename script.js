@@ -140,8 +140,8 @@ function conversionPostFix(){
     let postFixAr = [];
 
     //계산식 분해
-    let inFixAr = String("6+3*2").replace(/\s/g, '').match(/[\d\.]+|[^\d\.]/g).reverse(); 
-    // console.log(inFixAr);
+    let inFixAr = String("(5+3)*2").replace(/\s/g, '').match(/[\d\.]+|[^\d\.]/g); 
+    console.log(inFixAr);
     for(let i = 0; i < inFixAr.length; i++){
         // postFixAr.push(inFixAr[i]);
         if(!isNaN(inFixAr[i])){
@@ -149,21 +149,37 @@ function conversionPostFix(){
             postFixAr.push(inFixAr[i]);
         }else{
             //연산자는 stack에 저장
-            if(stack.length){
-                let op1 = operatorRank(stack[stack.length-1]);
-                let op2 = operatorRank(inFixAr[i]);
-                if(comparisonOperator(op1,op2)){
-                    postFixAr.push(stack[stack.length-1]);
-                    stack.pop();
+            // '(' 괄호는 스택에 저장
+            if(inFixAr[i] == "("){
+                stack.push(inFixAr[i]);
+            }else if(inFixAr[i] == ")"){
+                // ')' 괄호는 '(' 괄호가 나올때까지 후위식에 저장
+                while(1){
+                    let popOp = stack.pop();
+                    if(popOp == "("){
+                        break;
+                    }
+                    postFixAr.push(popOp);
                 }
+            }else{
+                if(stack.length){
+                    let op1 = operatorRank(stack[stack.length-1]);
+                    let op2 = operatorRank(inFixAr[i]);
+                    //우선순위가 높거나 같은연산자가 있으면
+                    //후위배열에 푸시 후 스택 제거
+                    if(comparisonOperator(op1,op2)){
+                        postFixAr.push(stack[stack.length-1]);
+                        stack.pop();
+                    }
+                }
+                stack.push(inFixAr[i]);
             }
-            stack.push(inFixAr[i]);
         }
     }
     for(let i = 0; i < stack.length; i++){
         postFixAr.push(stack[i]);
     }
-    // console.log(postFixAr);
+    console.log(postFixAr);
     console.log(stack);
 }
 
