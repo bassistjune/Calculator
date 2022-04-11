@@ -163,7 +163,7 @@ function conversionPostFix(){
     for(let i = 0; i < stack.length; i++){
         postFixAr.push(stack[i]);
     }
-    console.log(postFixAr);
+    // console.log(postFixAr);
     console.log(stack);
 }
 
