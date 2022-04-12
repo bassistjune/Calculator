@@ -13,6 +13,9 @@
   font-size: 28px;
   color: #2E64FE;
   padding-right: 10px;
+  border: none;
+  width: 100%;
+  text-align: right;
 }
 
 .calculator .calculator_result #calculator_sub_result_text {
