@@ -150,9 +150,9 @@ function conversionPostFix(inFix){
             }
         }
     }
-    for(let i = 0; i < stack.length; i++){
-        postFixAr.push(stack[i]);
-    }
+    while (stack.length) {
+        postFixAr.push(stack.pop());
+      }
     return postFixAr;
 }
 
